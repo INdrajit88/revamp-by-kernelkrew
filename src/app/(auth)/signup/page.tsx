@@ -13,6 +13,8 @@ import * as Yup from "yup";
 
 type Props = {};
 
+const GOOGLE_MAP_API_KEY = process.env.GOOGLE_MAP_API_KEY;
+
 export interface SignUpFormValues {
   first_name: string;
   last_name: string;
@@ -176,13 +178,12 @@ const Page = (props: Props) => {
   ) => {
     setFetchingLocation(true);
     try {
-      const apiKey = "AIzaSyARvglBnKE3rvok7RdoGs6-1v7UEhxg4KU"; // Replace with your Google Maps API key
       const geocodeResponse = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json`,
         {
           params: {
             address: address,
-            key: apiKey,
+            key: GOOGLE_MAP_API_KEY,
           },
         },
       );
@@ -220,7 +221,7 @@ const Page = (props: Props) => {
             params: {
               location: `${location.lat},${location.lng}`,
               timestamp: Math.floor(Date.now() / 1000),
-              key: apiKey,
+              key: GOOGLE_MAP_API_KEY,
             },
           },
         );

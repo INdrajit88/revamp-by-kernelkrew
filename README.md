@@ -18,6 +18,7 @@ In today's fast-paced world, finding reliable and timely repair services for hom
 ## 🎁 Features (or should we say, superpowers?)
 
 - **User Authentication**: Secret identities are safe with us.
+- **Nearby Service Providers**: Find the best service providers near you within 20km radius.
 - **Service Provider Dashboard**: Manage your services and bookings with ease.
 - **Customer Dashboard**: Book services, view your created jobs, and more.
 - **Service Booking**: Book services with just a few clicks.
@@ -39,6 +40,7 @@ To run this project, you will need to add the following environment variables to
 
 - `MONGODB_URI`: Your MongoDB connection string.
 - `JWT_SECRET`: A secret key for JWT token generation.
+- `GOOGLE_MAP_API_KEY`: Your Google Maps API key.
 - `apiKey`: Your Firebase API key.
 - `authDomain`: Your Firebase auth domain.
 - `projectId`: Your Firebase project ID.
