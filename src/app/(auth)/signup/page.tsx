@@ -13,7 +13,7 @@ import * as Yup from "yup";
 
 type Props = {};
 
-const GOOGLE_MAP_API_KEY = process.env.GOOGLE_MAP_API_KEY;
+const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
 
 export interface SignUpFormValues {
   first_name: string;
