@@ -6,6 +6,7 @@ import ShadcnButton from "@/components/ShadcnButton";
 import Wrapper from "@/components/Wrapper";
 import { cn } from "@/lib/utils";
 import { Avatar } from "@nextui-org/react";
+import { Star } from "lucide-react";
 import { ObjectId } from "mongodb";
 import Image from "next/image";
 import Link from "next/link";
@@ -70,9 +71,38 @@ const Page = (props: Props) => {
 };
 
 const Job = ({ job }: { job: MongoJob }) => {
+  const [rating, setRating] = React.useState<number>(0);
   const handleUpdateJob = async () => {
     try {
       const res = await fetch("/api/jobs/bid/completed/" + job._id.toString());
+      const data = await res.json();
+      if (data.success) {
+        toast.success(data.message);
+        console.log(data.data, "data");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      const err = error as Error & { message: string };
+      toast.error(err.message);
+    }
+  };
+
+  const handleAddReview = async () => {
+    try {
+      const res = await fetch("/api/jobs/review/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rating,
+          ratedBy: job?.postAdmin?.id,
+          ratedByUserName: job?.postAdmin?.username,
+          userId: job?.acceptedBid?.user?.id,
+          postId: job._id.toString(),
+        }),
+      });
       const data = await res.json();
       if (data.success) {
         toast.success(data.message);
@@ -149,6 +179,28 @@ const Job = ({ job }: { job: MongoJob }) => {
           </FlexContainer>
         </FlexContainer>
       </Link>
+      {job?.status === "closed" && (
+        <FlexContainer variant="row-end" className="items-center">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star
+              key={i}
+              size={24}
+              className={cn(
+                "fill-yellow-400 text-yellow-400",
+                i >= rating && "fill-gray-200 text-gray-200",
+              )}
+              onClick={() => setRating(i + 1)}
+            />
+          ))}
+          <ShadcnButton
+            variant="secondary"
+            className="rounded-3xl px-4 py-1 text-xs font-semibold"
+            onClick={handleAddReview}
+          >
+            rate
+          </ShadcnButton>
+        </FlexContainer>
+      )}
       {job?.status === "in-progress" && (
         <FlexContainer variant="row-end" className="">
           <ShadcnButton
