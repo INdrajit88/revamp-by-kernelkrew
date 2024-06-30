@@ -4,6 +4,7 @@ import FlexContainer from "@/components/FlexContainer";
 import Loader from "@/components/Loader";
 import ShadcnButton from "@/components/ShadcnButton";
 import Wrapper from "@/components/Wrapper";
+import { cn } from "@/lib/utils";
 import { Avatar } from "@nextui-org/react";
 import { ObjectId } from "mongodb";
 import Image from "next/image";
@@ -85,12 +86,25 @@ const Job = ({ job }: { job: MongoJob }) => {
     }
   };
   return (
-    <>
+    <FlexContainer
+      variant="column-start"
+      className={cn(
+        "cursor-pointer rounded-xl p-1.5",
+        job?.status === "in-progress" && "bg-yellow-50",
+        job?.status === "open" && "bg-rose-50",
+        job?.status === "closed" && "bg-green-50",
+      )}
+    >
       <Link href={`/jobs/${job._id}`}>
         <FlexContainer
           variant="column-start"
           gap="sm"
-          className="rounded-xl bg-zinc-100 p-3"
+          className={cn(
+            "rounded-xl bg-zinc-100 p-3",
+            job?.status === "in-progress" && "bg-yellow-200",
+            job?.status === "open" && "bg-rose-200",
+            job?.status === "closed" && "bg-green-200",
+          )}
         >
           <FlexContainer variant="row-between">
             <FlexContainer variant="row-start">
@@ -146,7 +160,7 @@ const Job = ({ job }: { job: MongoJob }) => {
           </ShadcnButton>
         </FlexContainer>
       )}
-    </>
+    </FlexContainer>
   );
 };
 

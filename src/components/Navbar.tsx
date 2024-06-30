@@ -23,7 +23,7 @@ const Navbar = (props: Props) => {
     <FlexContainer
       variant="row-between"
       wrap="nowrap"
-      className="sticky top-0 mx-auto h-[80px] w-full max-w-screen-2xl items-center bg-transparent px-10"
+      className="mx-auto h-[80px] w-full max-w-screen-2xl items-center bg-transparent px-10"
     >
       <Link
         href={"/"}
