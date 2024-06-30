@@ -312,6 +312,7 @@ const OrderHistroy = () => {
   return (
     <FlexContainer variant="column-start">
       {isLoading && <Loader />}
+      {orders.length === 0 && <h3>No orders found</h3>}
       {orders.length > 0 &&
         orders.map((item, i) => {
           return (
