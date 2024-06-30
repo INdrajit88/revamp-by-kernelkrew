@@ -13,7 +13,7 @@ export default function Home() {
         width={1920}
         height={1080}
         alt="bg"
-        className="relative h-[calc(100vh_-_80px)] w-full object-cover object-[50%_85%]"
+        className="relative h-[calc(100vh_-_80px)] w-full object-cover object-[50%_90%]"
       />
       <div className="absolute inset-x-0 bottom-0 px-5 py-10">
         <FlexContainer variant="row-between" className="items-center">
