@@ -82,11 +82,17 @@ const Page = (props: Props) => {
             budget: data.data.budget,
             location: data.data.location,
           });
-          if (data?.data?.bids?.length > 0) {
-            for (const bid of data.data.bids) {
-              if (bid.user.id === user?._id) {
-                setIsBidPlaced(true);
-              }
+          // if (data?.data?.bids?.length > 0) {
+          //   for (const bid of data.data.bids) {
+          //     if (bid.user.id === user?._id) {
+          //       setIsBidPlaced(true);
+          //     }
+          //   }
+          // }
+          for (let i = 0; i < data?.data?.bids?.length; i++) {
+            if (data.data.bids[i].user.id === user?._id.toString()) {
+              setIsBidPlaced(true);
+              break;
             }
           }
           setImages(data.data.images);
@@ -137,7 +143,7 @@ const Page = (props: Props) => {
       const data = await res.json();
       if (data?.success) {
         toast.success(data.message);
-        router.refresh();
+        router.push("/dashboard");
       } else {
         toast.error(data.message);
       }

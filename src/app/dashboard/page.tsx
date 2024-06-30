@@ -6,6 +6,7 @@ import Loader from "@/components/Loader";
 import ShadcnButton from "@/components/ShadcnButton";
 import Tab from "@/components/Tabs";
 import Wrapper from "@/components/Wrapper";
+import { cn } from "@/lib/utils";
 import { Avatar } from "@nextui-org/react";
 import { ObjectId } from "mongodb";
 import Link from "next/link";
@@ -316,15 +317,31 @@ const OrderHistroy = () => {
       {orders.length > 0 &&
         orders.map((item, i) => {
           return (
-            <Link href={`/jobs/${item._id}`} key={i}>
-              <FlexContainer variant="row-end">
-                <h3 className="text-sm font-medium">status: {item.status}</h3>
+            <Link
+              href={`/jobs/${item._id}`}
+              key={i}
+              className={cn(
+                "rounded-xl bg-zinc-100 p-2.5",
+                item.status === "open" && "bg-red-50",
+                item.status === "in-progress" && "bg-yellow-50",
+                item.status === "closed" && "bg-green-50",
+              )}
+            >
+              <FlexContainer variant="row-end" className="mb-1">
+                <h3 className="rounded-3xl px-1.5 py-1 text-sm font-medium">
+                  status: {item.status}
+                </h3>
                 {/*  */}
               </FlexContainer>
               <FlexContainer
                 key={i}
                 variant="row-between"
-                className="rounded-xl bg-zinc-100 p-2.5"
+                className={cn(
+                  "rounded-xl bg-zinc-100 p-2.5",
+                  item.status === "open" && "bg-red-100",
+                  item.status === "in-progress" && "bg-yellow-200",
+                  item.status === "closed" && "bg-green-200",
+                )}
               >
                 <FlexContainer variant="row-start">
                   <Avatar
